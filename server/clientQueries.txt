@@ -1,0 +1,119 @@
+# Write your query or mutation here
+query getAllUser{
+  users{
+    _id
+    email
+    firstName
+    lastName
+  }
+}
+
+
+
+# Write your query or mutation here
+query getAllUser{
+  users{
+    _id
+    email
+    firstName
+    lastName,
+    quotes{
+      name
+      by
+    }
+  }
+}
+
+
+query getUserById($userId:ID!){
+  user(id:$userId){
+   	_id 
+    firstName
+    email
+  }
+}
+
+
+query getAllQuotes{
+  quotes{
+    by
+    name
+  }
+}
+
+
+query getUserById{
+  user(id:"1234"){
+   	_id 
+    firstName
+    email
+  }
+}
+
+
+query getquoteById($userId:ID!){
+  quote(by:$userId){
+   	by 
+    name
+   
+  }
+}
+
+query getquoteByUser($userId:ID!){
+  quote(by:$userId){
+   	by 
+    name
+   
+  }
+}
+
+
+
+
+
+
+ type Mutation{
+        signupUserDummy(firstName:String!,lastName:String!,email:String!,password:String!): User 
+    }
+
+
+
+
+
+mutation createUser($userNew:UserInput!){
+ user : signupUserDummy(userNew:$userNew){
+    _id
+    firstName
+    lastName
+    email
+  }
+}
+
+{
+  "userNew": {
+  "firstName":"add","lastName":"last","email":"lastf@test.com","password":"sdsff1234"
+}
+}
+
+
+curl 'http://localhost:4000/' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:4000' --data-binary '{"query":"mutation createUser($userNew:UserInput!){\n user : signupUserDummy(userNew:$userNew){\n    _id\n    firstName\n    lastName\n    email\n  }\n}","variables":{"userNew":{"firstName":"add","lastName":"last","email":"lastf@test.com","password":"sdsff1234"}}}' --compressed
+
+
+
+mutation createUser($userNew:UserInput!){
+ user : signupUser(userNew:$userNew){
+    _id
+    firstName
+    lastName
+    email
+  
+  }
+}
+
+
+
+mutation signInUser($userSignin:userSignInInput!){
+ user:signInUser(userSignin:$userSignin){
+   token
+  }
+}
